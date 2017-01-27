@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="CoffeeCup HTML Editor (www.coffeecup.com)">
+    <meta name="dcterms.created" content="Mon, 02 May 2016 01:04:23 GMT">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>Time Sheet</title>
+    
+    <style type="text/css">
+    <!--
+    body {
+      color:#000000;
+      background-color:#FFFF00;
+      background-image:url('Background Image');
+      background-repeat:no-repeat;
+    }
+    a  { color:#0000FF; }
+    a:visited { color:#800080; }
+    a:hover { color:#008000; }
+    a:active { color:#FF0000; }
+    -->
+	h1 { text-align: center; }
+	select { font-weight: bold; font-size: 1.5em; }
+	td.total { font-weight: bold; text-align: center; }
+	button { font-weight: bold; }
+	input { margin: auto; display:table; }
+	input.datetime-local { margin-left:4px; margin-right:4px; }
+
+	
+	</style>
+    <!--[if IE]><p></p>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+        <div style="text-align: center">
+        <select style="width:150px">
+		  <option value="Debra's">Debra's</option>
+		  <option value="Bettie's">Bettie's</option>
+		  <option value="Darbara's">Darbara's</option>
+		  <option value="Sherry's">Sherry's</option>
+		  <option value="Marcia's">Marcia's</option>
+		</select>
+		</div>
+  		<h1>Time Sheet</h1>
+<table border="2"  width="90%" style="margin-left:auto; margin-right:auto;">
+  <tr><!-- Row 1 -->
+     <th>Day of Week</th><!-- Col 1 -->
+     <th>Mon</th><!-- Col 2 -->
+     <th>Tue</th><!-- Col 3 -->
+     <th>Wed</th><!-- Col 4 -->
+     <th>Thu</th><!-- Col 5 -->
+     <th>Fri</th><!-- Col 6 -->
+     <th>Sat</th><!-- Col 7 -->
+     <th>Sun</th><!-- Col 8 -->
+     <th style="padding-left:9px;padding-right:9px;">Total</th><!-- Col 9 -->
+  </tr>
+  <tr style=""><!-- Row 2 -->
+     <td style="font-weight:bold; text-align:center;" <td>Time In</td><!-- Col 1 -->
+     <td><input class="datetime-local" id="monIn" type="datetime-local"/></td><!-- Col 2 -->
+     <td><input class="datetime-local" id="tueIn" type="datetime-local"/></td><!-- Col 3 -->
+     <td><input class="datetime-local" id="wedIn" type="datetime-local"/></td><!-- Col 4 -->
+     <td><input class="datetime-local" id="thuIn" type="datetime-local"/></td><!-- Col 5 -->
+     <td><input class="datetime-local" id="friIn" type="datetime-local"/></td><!-- Col 6 -->
+     <td><input class="datetime-local" id="satIn" type="datetime-local"/></td><!-- Col 7 -->
+     <td><input class="datetime-local" id="sunIn" type="datetime-local"/></td><!-- Col 8 -->
+     <td></td><!-- Col 9 -->
+  </tr>
+  <tr><!-- Row 3 -->
+     <td style="font-weight:bold; text-align:center;" <td>Time Out</td><!-- Col 1 -->
+     <td><input class="datetime-local" id="monOut" type="datetime-local"/></td><!-- Col 2 -->
+     <td><input class="datetime-local" id="tueOut" type="datetime-local"/></td><!-- Col 3 -->
+     <td><input class="datetime-local" id="wedOut" type="datetime-local"/></td><!-- Col 4 -->
+     <td><input class="datetime-local" id="thuOut" type="datetime-local"/></td><!-- Col 5 -->
+     <td><input class="datetime-local" id="friOut" type="datetime-local"/></td><!-- Col 6 -->
+     <td><input class="datetime-local" id="satOut" type="datetime-local"/></td><!-- Col 7 -->
+     <td><input class="datetime-local" id="sunOut" type="datetime-local"/></td><!-- Col 8 -->
+	 <td></td><!-- Col 9 -->
+  </tr>
+  <tr><!-- Row 4 -->
+     <td style="font-weight:bold; text-align:center;"<td>Total</td> <!--Col 1 -->
+     <td class="total"><span id="totalMon">0</span></td><!-- Col 1 -->
+     <td class="total"><span id="totalTue">0</span></td><!-- Col 3 -->
+     <td class="total"><span id="totalWed">0</span></td><!-- Col 4 -->
+     <td class="total"><span id="totalThu">0</span></td><!-- Col 5 -->
+     <td class="total"><span id="totalFri">0</span></td><!-- Col 6 -->
+     <td class="total"><span id="totalSat">0</span></td><!-- Col 7 -->
+	 <td class="total"><span id="totalSun">0</span></td><!-- Col 8 -->
+	 <td class="total"><span id="grandTotal">0</span></td><!-- Col 9 -->
+  </tr>
+</table>
+<br/>
+	 <div style="text-align:center;">
+		<button type="submit" onclick="computeTime()">Compute Time</button>
+		<button onclick="reset()">Reset</button>
+		<br/>
+		<br/>
+		<button onclick="reset2()">Reset Starting Tue at Date</button>
+		<input style="display:inline" type="date" id="tueResetDate">
+		</input>
+		<br/>
+		<br/>
+		<button onclick="reset3()">Reset Starting Fri at Date</button>
+		<input style="display:inline" type="date" id="friResetDate">
+		</input>		
+		<br/>
+		<br/>
+		<label style="font-weight:bold;">Hours</label>
+		<input id="hoursWorked" style="display:inline;" type="number" min=".1" max="99.9" step=".1" required="required">
+		</input>
+		<label style="font-weight:bold;"> * Rate</label>
+		<input id="rateOfPay" style="display:inline;" type="number" min="1.01" max="20.01" step=".01" required="required" value="15.00">
+		</input>
+		<label style="font-weight:bold;padding-left:"></label>
+		<span style="font-weight:bold;padding-left:1%;" id="totalToPay">0</span>
+		<button type="submit" onclick="computeTotal()">Compute Total</button>		
+		<br/>
+		<br/>
+		<label style="font-weight:bold;">Check Number</label>
+		<input style="display:inline-block;" type="text">
+		</input>
+		<select style="display:inline-block;font-weight:normal;font-size:initial;">
+		  <option value="BBT">BBT</option>
+		  <option value="UCU">UCU</option>
+		</select>
+     </div>
+
+
+
+  </body>
+  <script>
+  
+    var timeIn = [ "monIn", "tueIn", "wedIn", "thuIn", "friIn", "satIn", "sunIn" ];
+	var timeOut = [ "monOut", "tueOut", "wedOut", "thuOut", "friOut", "satOut", "sunOut" ];
+	var totalDay = [ "totalMon", "totalTue", "totalWed", "totalThu", "totalFri", "totalSat", "totalSun" ];
+	var grandTotal = 0;
+	var timeInLen = timeIn.length;
+	var timeOutLen = timeOut.length;
+	var totalDayLen = totalDay.length;
+  
+    function computeTime() {
+	// Compute the time between the in time and out time for each day.
+//	  alert ("begin computeTime");
+	  var timeInString;
+	  var timeOutString;
+	  var dtIn;
+	  var dtOut;
+	  var hoursWorked;
+	  var hoursWorkedRounded;
+	  for(i = 0; i < timeInLen; i++)
+	  {
+	    timeInString = document.getElementById(timeIn[i]).value
+		timeOutString = document.getElementById(timeOut[i]).value;
+		if ((timeInString !== null && timeInString != "")  && (timeOutString !== null && timeOutString != "")) {
+             dtIn = new Date(timeInString);		
+             dtOut = new Date(timeOutString);
+             hoursWorked = Date.dateDiff('h', dtIn.getTime(), dtOut.getTime());
+             hoursWorkedRound = Math.round(hoursWorked * 100) / 100;
+             document.getElementById(totalDay[i]).innerHTML=(hoursWorkedRound+" "+"Hours");
+			 grandTotal = grandTotal + hoursWorkedRound;
+			 grandTotal = Math.round(grandTotal * 100) / 100;		 
+        }//if//			 
+	  }//for//
+	  document.getElementById("grandTotal").innerHTML=(grandTotal+" "+"Hours");
+	  document.getElementById("hoursWorked").value=grandTotal;
+	  grandTotal = 0;
+	}//function//
+	
+	// datepart: 'y', 'm', 'w', 'd', 'h', 'n', 's'
+	// where 'w' is a week, 'd' a day, 'h' hours, 'n' for minutes, and 's' for seconds
+	// Find the difference between the dates.
+    Date.dateDiff = function(datepart, fromdate, todate) {	
+      datepart = datepart.toLowerCase();	
+      var diff = todate - fromdate;	
+      var divideBy = { w:604800000, 
+                       d:86400000, 
+                       h:3600000, 
+                       n:60000, 
+                       s:1000 };	
+  
+      //return Math.floor( diff/divideBy[datepart]);
+	  return (diff/divideBy[datepart]);
+    }
+
+	function reset() {
+	  //Initialize all input fields
+	  //alert("reset top");
+
+	  for(i = 0; i < timeInLen; i++)
+	  {
+	    document.getElementById(timeIn[i]).value = "";
+	  }//for//
+	  for(i = 0; i < timeOutLen; i++)
+	  {
+	    document.getElementById(timeOut[i]).value = "";
+	  }//for//
+	  for(i = 0; i < totalDayLen; i++)
+	  {
+	    document.getElementById(totalDay[i]).innerHTML = "0";
+	  }
+	  document.getElementById("hoursWorked").value=0;
+	  document.getElementById("totalToPay").innerHTML = "0";
+	  document.getElementById("tueResetDate").value = "";
+	  document.getElementById("friResetDate").value = "";
+	  document.getElementById("totalToPay").innerHTML = "0";
+	  document.getElementById("rateOfPay").value=15;
+	  //alert("reset bottom");
+	}//reset//
+	  
+  	function reset2() {
+	// Initialize all date input fields from tue to thu to the starting date incrementing 1 day for each field.
+//	  alert("reset2 top");
+
+	  var tueResetDate = document.getElementById("tueResetDate").value;
+	  var resetDate;
+	  var resetDateMilliseconds;
+      if (tueResetDate !== null && tueResetDate != "") {
+          resetDate = new Date(tueResetDate);
+		  resetDateMilliseconds = resetDate.getTime();		
+        }//if//			 
+	  
+	  var dateString = getDayString(resetDateMilliseconds);
+alert(dateString);
+      dateString = fixDateString(dateString);	  
+	  for(i = 1; i < 4; i++)
+	  {
+	    document.getElementById(timeIn[i]).value = dateString;
+	    document.getElementById(timeOut[i]).value = dateString;
+        // 86400000 milliseconds in a day
+		resetDateMilliseconds = resetDateMilliseconds + 86400000;
+		dateString = getDayString(resetDateMilliseconds);
+		dateString = fixDateString(dateString);		
+	  }//for//
+	  //document.getElementById(timeIn[0]).value = dateString;
+	  //document.getElementById(timeOut[0]).value = dateString; 
+	  
+	  for(i = 0; i < totalDayLen; i++)
+	  {
+	    document.getElementById(totalDay[i]).innerHTML = "0";
+	  }
+	  //alert("reset2 bottom");
+	}//reset2//
+	
+  	function reset3() {
+	// Initialize all date input fields from tue to thu to the starting date incrementing 1 day for each field. 	
+//	  alert("reset3 top");
+
+	  var friResetDate = document.getElementById("friResetDate").value;
+	  var resetDate;
+	  var resetDateMilliseconds;
+      if (friResetDate !== null && friResetDate != "") {
+          resetDate = new Date(friResetDate);
+		  resetDateMilliseconds = resetDate.getTime();		
+        }//if//			 
+	  
+	  var dateString = getDayString(resetDateMilliseconds);
+	  dateString = fixDateString(dateString);
+	  for(i = 4; i < 7; i++)
+	  {
+	    document.getElementById(timeIn[i]).value = dateString;
+	    document.getElementById(timeOut[i]).value = dateString;
+        // 86400000 milliseconds in a day
+		resetDateMilliseconds = resetDateMilliseconds + 86400000;
+		dateString = getDayString(resetDateMilliseconds);
+		dateString = fixDateString(dateString);		
+	  }//for//
+	  document.getElementById(timeIn[0]).value = dateString;
+	  document.getElementById(timeOut[0]).value = dateString; 
+	  
+	  for(i = 0; i < totalDayLen; i++)
+	  {
+	    document.getElementById(totalDay[i]).innerHTML = "0";
+	  }
+	  //alert("reset2 bottom");
+	}//reset3//	
+	
+	function getDayString(milliseconds)
+	{
+//	  alert("getDayString Begin");
+	  var dateFullYear;
+	  var dateDay;
+	  var dateDayString;
+	  var dateMonth;
+	  var dateMonthString;
+	  var dateString;
+	  var nextDayMilliseconds;
+	  
+      var resetDate = new Date(milliseconds);
+	 
+	  nextDayMilliseconds = milliseconds;
+	   
+	  dateFullYear = resetDate.getFullYear();
+	  
+	  nextDayMilliseconds = nextDayMilliseconds + 86400000;
+	  resetDate = new Date(nextDayMilliseconds);
+	  
+	  dateDay = resetDate.getDate();
+	  
+	  dateDayString;
+	  dateDayString = dateDay.toString();
+	  if(dateDay.toString().length < 2)
+	  {
+	     dateDayString='0'+dateDay.toString();
+      }
+	  
+	  dateMonth = resetDate.getMonth() + 1;
+	  dateMonthString = dateMonth.toString();
+	  if(dateMonth.toString().length < 2)
+	  {
+	    dateMonthString = '0'+dateMonth.toString();
+      }
+//	  alert("getDayString Begin"); 
+	  return dateString = dateFullYear+'-'+dateMonth+'-'+dateDayString+'T00:00';
+	}
+	function computeTotal()
+	{
+//	  alert("begin computeTotal");
+	  var hoursWorked = document.getElementById("hoursWorked").value;
+	  var rateOfPay = document.getElementById("rateOfPay").value;
+	  var totalPay;
+	  if(isNaN(hoursWorked) || isNaN(rateOfPay))
+	  {
+	    ;
+	  }
+	  else
+	  {
+//	    alert(hoursWorked+" "+isNaN(rateOfPay)+" "+(hoursWorked * rateOfPay));
+		totalPay = hoursWorked * rateOfPay;
+//		alert(totalPay);
+		totalPay = Math.round(totalPay * 100) / 100;
+		document.getElementById("totalToPay").innerHTML = ("=  $"+totalPay);
+	//	alert(totalPay);
+	  }
+	}
+	function fixDateString(dateString)
+	{
+      var dateParts = dateString.split("-");
+	  var dateYear = dateParts[0];
+	  var dateMonth = dateParts[1];
+	  var dateDayTime = dateParts[2].split("T");
+	  var dateDay = dateDayTime[0];
+	  var dateTime = dateDayTime[1];
+	 // alert(dateYear+' '+dateMonth+' '+dateDay+' '+dateTime);
+	 // Pad the month with leading zero if 1 is not present
+	  if(dateMonth.length < 2) {
+	     dateMonth = '0'+dateMonth.toString();
+	  }
+	  // Pad the day with leading zero if 1 is not present
+      if(dateDay.length < 2) {
+	     dateDay = '0'+dateDay.toString();
+	  }	  
+	  return dateString = dateYear+'-'+dateMonth+'-'+dateDay+'T'+dateTime;	
+	}
+  </script>
+</html>
