@@ -8,6 +8,7 @@
         days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
         days = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
         h = date.getHours();
+		m = date.getMinutes();
 		am_pm = "";
         if(h<10)
         {
@@ -15,14 +16,24 @@
         }
 		if(h>12)
 		{
-		 		h = h - 12;
 				am_pm = "PM";
 		}
-		else
+		if(h<12)
 		{
 		 		am_pm = "AM";
+		}		
+		if(h==12 && m==0)
+		{
+		 		am_pm =	"NOON";	
 		}
-        m = date.getMinutes();
+		if(h==12 && m>0)
+		{
+		 		am_pm = "PM";
+		}
+		if(h>12)
+		{
+		 		h = h - 12;
+		}
         if(m<10)
         {
                 m = "0"+m;
@@ -42,7 +53,7 @@
 		{
 		 		dayString = "0" + d;
 		}
-        dateResult = ''+monthString+'/'+dayString+'/'+year+' '+days[day]+'<br>'+h+':'+m+':'+s+' '+am_pm;
+        dateResult = ''+monthString+'/'+dayString+'/'+year+' '+days[day]+"&nbsp;&nbsp;&nbsp;&nbsp;"+h+':'+m+':'+s+' '+am_pm;
         document.getElementById(id).innerHTML = dateResult;
         setTimeout('date_time("'+id+'");','5000');
         return true;
